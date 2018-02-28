@@ -25,8 +25,11 @@ int main(void){
 			
 			if(buf[strlen(buf)-1]=='\n')
 				buf[strlen(buf) - 1] = '\0';/*replace newline with null */
+			for(int i = 0;i<5;i++){
+				tokens[i]=(char *)0;
+			}
 			char *token = strtok(buf, " \t");
-			while(token && numberOfArguments<4) {
+			while(token && numberOfArguments<5) {
 				tokens[numberOfArguments]=token;
 				numberOfArguments++;
 				token = strtok(NULL, " \t");
@@ -35,26 +38,7 @@ int main(void){
 				printf("fork error");
 				exit(1);
 			}else if(pid==0){/*)child)process)*/
-				switch(numberOfArguments){
-				case 1:
-					execlp(tokens[0],tokens[0],(char *)0);
-					break;
-				case 2:
-					execlp(tokens[0],tokens[0],tokens[1],(char *)0);
-					break;
-				case 3:
-					execlp(tokens[0],tokens[0],tokens[1],tokens[2],(char *)0);
-					break;
-				case 4:
-					execlp(tokens[0],tokens[0],tokens[1],tokens[2],tokens[3],(char *)0);
-					break;
-				case 5:
-					execlp(tokens[0],tokens[0],tokens[1],tokens[2],tokens[3],tokens[4],(char *)0);
-					break;
-				default:
-					break;
-				}
-				//execlp(buf,buf,(char *)0);
+				execlp(tokens[0],tokens[0],tokens[1],tokens[2],tokens[3],tokens[4],(char *)0);
 				printf("couldn’t execute: %s \n", buf);
 				exit(127);
 			}
